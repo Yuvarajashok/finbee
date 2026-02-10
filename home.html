@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Welcome 👋</h2>
+
+<p class="hint" style="margin-bottom: 28px;">
+  Track your income, expenses, and savings — all in one place.
+</p>
+
+<div class="home-grid">
+
+  <a href="/accounts" class="card home-card">
+    <h3>🏦 Accounts</h3>
+    <p>
+      Manage cash & bank balances.<br>
+      Edit opening balance anytime.
+    </p>
+  </a>
+
+  <a href="/transactions" class="card home-card">
+    <h3>🧾 Transactions</h3>
+    <p>
+      Add, edit, or delete transactions.<br>
+      Income, expense & investments.
+    </p>
+  </a>
+
+  <a href="/insights" class="card home-card">
+    <h3>📊 Insights</h3>
+    <p>
+      Weekly & monthly summaries.<br>
+      Account-wise breakdown.
+    </p>
+  </a>
+
+  <a href="/dashboard" class="card home-card">
+    <h3>📈 Dashboard</h3>
+    <p>
+      Visual trends & category charts.<br>
+      Clear financial overview.
+    </p>
+  </a>
+
+</div>
+
+{% endblock %}

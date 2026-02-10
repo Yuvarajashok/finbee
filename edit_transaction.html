@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Edit Transaction</h2>
+
+<form method="post" class="card form-grid">
+
+  <!-- DATE -->
+  <input
+    type="date"
+    name="txn_date"
+    value="{{ txn.date }}"
+    required
+  >
+
+  <!-- ERROR MESSAGE -->
+  {% if error %}
+    <div class="error form-grid-full">{{ error }}</div>
+  {% endif %}
+
+  <!-- AMOUNT -->
+  <input
+    type="number"
+    step="0.01"
+    min="0.01"
+    name="amount"
+    value="{{ txn.amount }}"
+    required
+  >
+
+  <!-- TYPE -->
+  <select name="transaction_type" required>
+    <option value="income"
+      {% if txn.transaction_type == 'income' %}selected{% endif %}>
+      Income
+    </option>
+    <option value="expense"
+      {% if txn.transaction_type == 'expense' %}selected{% endif %}>
+      Expense
+    </option>
+    <option value="investment"
+      {% if txn.transaction_type == 'investment' %}selected{% endif %}>
+      Investment
+    </option>
+  </select>
+
+  <!-- CATEGORY -->
+  <input
+    type="text"
+    name="category_name"
+    value="{{ txn.category.name }}"
+    placeholder="Category"
+    required
+  >
+
+  <!-- ACCOUNT -->
+  <select name="account_id" class="form-grid-full" required>
+    {% for a in accounts %}
+      <option value="{{ a.id }}"
+        {% if a.id == txn.account_id %}selected{% endif %}>
+        {{ a.account_name | capitalize }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <!-- NOTE -->
+  <input
+    type="text"
+    name="note"
+    value="{{ txn.note or '' }}"
+    placeholder="Note (optional)"
+    class="form-grid-full"
+  >
+
+  <!-- ACTIONS -->
+  <button type="submit" class="form-grid-full">Save Changes</button>
+
+  <button
+    type="button"
+    class="btn"
+    onclick="window.location.href='/transactions'">
+    Cancel
+  </button>
+
+  <button
+    type="button"
+    class="btn danger"
+    onclick="openDeleteModal()">
+    Delete Transaction
+  </button>
+
+</form>
+
+<!-- DELETE MODAL -->
+<div id="deleteModal" class="modal-overlay">
+  <div class="modal-box">
+    <h3>Delete Transaction</h3>
+    <p>Are you sure you want to delete this transaction?</p>
+
+    <div class="modal-actions">
+      <a href="/transactions/delete/{{ txn.id }}" class="btn danger">
+        Delete
+      </a>
+      <button class="btn" onclick="closeDeleteModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'flex';
+  }
+
+  function closeDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+  }
+</script>
+
+{% endblock %}

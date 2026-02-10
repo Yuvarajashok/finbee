@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="action-bar">
+        <h2>📦 Data Backup & Restore</h2>
+        <a href="{{ url_for('profile') }}" class="btn btn-secondary">
+            ← Back to Profile
+        </a>
+    </div>
+
+    <!-- Export Card -->
+    <div class="card data-card">
+        <div class="data-card-header">
+            <h3>⬇️ Export Your Data</h3>
+            <p class="data-card-description">Download all your financial data as a JSON file for backup or transfer to another device.</p>
+        </div>
+        
+        <div class="data-card-body">
+            <a href="{{ url_for('export_data') }}" class="btn btn-export">
+                📥 Download Backup
+            </a>
+            
+            <div class="data-info-box">
+                <strong>Backup includes:</strong>
+                <ul>
+                    <li>All accounts</li>
+                    <li>All categories</li>
+                    <li>All transactions</li>
+                    <li>Export timestamp</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Card -->
+    <div class="card data-card">
+        <div class="data-card-header">
+            <h3>⬆️ Import Your Data</h3>
+            <p class="data-card-description">Upload a previously exported JSON file to restore your financial data.</p>
+        </div>
+        
+        <div class="data-card-body">
+            {% if success %}
+            <div class="alert alert-success">
+                <strong>✓ Success!</strong> {{ message }}
+            </div>
+            {% endif %}
+            
+            {% if error %}
+            <div class="alert alert-error">
+                <strong>✗ Error:</strong> {{ error }}
+            </div>
+            {% endif %}
+            
+            <form method="POST" enctype="multipart/form-data" class="import-form">
+                <div class="import-field">
+                    <label for="file" class="import-label">Select JSON File</label>
+                    <input type="file" class="import-input" id="file" name="file" accept=".json" required>
+                    <small class="import-hint">Only .json files exported from FinBee</small>
+                </div>
+                
+                <button type="submit" class="btn btn-import">
+                    📤 Restore Data
+                </button>
+            </form>
+            
+            <div class="data-warning-box">
+                <strong>⚠️ Import behavior:</strong>
+                <ul>
+                    <li>Duplicate transactions are not imported</li>
+                    <li>Existing accounts won't be modified</li>
+                    <li>New accounts/categories created as needed</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Information Card -->
+    <div class="card data-card">
+        <div class="data-card-header">
+            <h3>💡 Backup Best Practices</h3>
+        </div>
+        <div class="data-card-body">
+            <p class="data-info-text">
+                Regularly export your data to protect against data loss. Keep multiple backups in different locations such as cloud storage, USB drives, or email.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

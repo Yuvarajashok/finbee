@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="profile-page-container">
+  <h2 class="profile-title">My Profile</h2>
+  <div class="profile-vertical-stack">
+    <div class="profile-avatar-container">
+      <img
+        src="{% if current_user.profile_pic.startswith('default') %}{{ url_for('static', filename='profile/' + current_user.profile_pic) }}{% else %}{{ url_for('uploaded_file', filename=current_user.profile_pic) }}{% endif %}"
+        alt="Profile Picture"
+        class="profile-avatar"
+      >
+    </div>
+    <form method="post" enctype="multipart/form-data" class="card profile-card-redesign">
+      <div class="profile-form-fields">
+        <input
+          type="text"
+          name="name"
+          value="{{ current_user.name }}"
+          placeholder="Your name"
+          required
+        >
+        <input
+          type="file"
+          name="photo"
+          accept="image/png, image/jpeg"
+        >
+      </div>
+      <button type="submit">Save Changes</button>
+    </form>
+    <div class="card backup-card">
+      <div class="backup-card-header">
+        <span class="backup-icon">📦</span>
+        <span class="backup-title">Backup & Restore</span>
+      </div>
+      <div class="backup-card-body">
+        <p class="backup-desc">Export your financial data as a backup or import previously exported data.</p>
+        <a href="{{ url_for('import_data') }}" class="btn btn-secondary btn-backup">🔄 Manage Data Export/Import</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
