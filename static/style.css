@@ -1,0 +1,806 @@
+/* ===============================
+   GLOBAL RESET
+================================ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  display: block;
+}
+
+/* ===============================
+   NAVBAR (FINBEE – FINAL)
+================================ */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 28px;
+  background: linear-gradient(90deg, #020617, #0f172a);
+  color: white;
+}
+
+/* BRAND */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.brand-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* CENTER NAV */
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-center a {
+  font-size: 14px;
+  color: #e5e7eb;
+}
+
+.nav-center a:hover {
+  color: #ffffff;
+}
+
+/* RIGHT PROFILE */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #e5e7eb;
+}
+
+.profile-link:hover {
+  color: #ffffff;
+}
+
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: 2px solid #38bdf8;
+}
+
+.username {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.logout-link {
+  font-size: 14px;
+  color: #fca5a5;
+}
+
+.logout-link:hover {
+  color: #fecaca;
+}
+
+/* ===============================
+   LAYOUT
+================================ */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+/* ===============================
+   HEADINGS
+================================ */
+h2 {
+  margin-top: 0;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+h3 {
+  margin: 0 0 10px 0;
+  color: #1e293b;
+}
+
+/* ===============================
+   FORMS
+================================ */
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #cbd5f5;
+  margin-bottom: 10px;
+}
+
+button,
+.btn {
+  background: #0f172a;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover,
+.btn:hover {
+  background: #020617;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.hint {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* ===============================
+   FORM GRID
+================================ */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-grid-full {
+  grid-column: span 2;
+}
+
+/* ===============================
+   TABLES
+================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th {
+  text-align: left;
+  font-size: 13px;
+  color: #475569;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+td {
+  padding: 10px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+
+tr:hover {
+  background: #f9fafb;
+}
+
+.action-links a {
+  margin-right: 12px;
+  font-size: 14px;
+}
+
+/* ===============================
+   DANGER
+================================ */
+.danger,
+.danger-text {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+.danger:hover,
+.danger-text:hover {
+  text-decoration: underline;
+}
+
+.btn-danger {
+  background: #dc2626;
+}
+
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+/* ===============================
+   CARDS
+================================ */
+.card {
+  background: white;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+/* ===============================
+   EMPTY STATE
+================================ */
+.empty {
+  color: #64748b;
+  font-style: italic;
+  margin-top: 12px;
+}
+
+/* ===============================
+   DASHBOARD & INSIGHTS
+================================ */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 25px;
+}
+
+.card .label {
+  font-size: 14px;
+  color: #475569;
+}
+
+.card .value {
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.card.highlight {
+  background: #f0f7ff;
+  border: 1px solid #cce4ff;
+}
+
+.dashboard-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  padding: 18px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.summary-card.income {
+  background: #dcfce7;
+}
+
+.summary-card.expense {
+  background: #fee2e2;
+}
+
+.summary-card.savings {
+  background: #e0f2fe;
+}
+
+/* ===============================
+   CHARTS
+================================ */
+canvas {
+  max-height: 260px;
+}
+
+/* ===============================
+   AUTH
+================================ */
+.auth-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 380px;
+  padding: 20px;
+}
+
+.auth-card {
+  padding: 28px;
+  text-align: center;
+}
+
+/* ===============================
+   HOME
+================================ */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.home-card {
+  padding: 22px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.home-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ===============================
+   PROFILE PAGE
+================================ */
+.profile-wrapper {
+  max-width: 420px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.profile-image {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e5e7eb;
+  margin: 20px auto;
+}
+
+.profile-card {
+  padding: 24px;
+}
+
+.profile-card button {
+  width: 100%;
+  margin-top: 16px;
+}
+
+/* ===============================
+   PROFILE PAGE REDESIGN
+================================ */
+.profile-page-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 16px 40px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-title {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #0f172a;
+  border: none;
+  padding-bottom: 0;
+}
+
+.profile-vertical-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  /* Unifies spacing between profile card and backup card */
+}
+
+/* Avatar Container & Image */
+.profile-avatar-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  /* Margin fix for overlap */
+  margin-bottom: -56px;
+}
+
+.profile-avatar {
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #f8fafc;
+  /* Matches body background for clean cutout */
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+  background: #fff;
+  position: relative;
+  z-index: 3;
+}
+
+/* Shared Card Styles */
+.profile-card-redesign,
+.backup-card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Specifics for Profile Card */
+.profile-card-redesign {
+  padding: 64px 28px 28px 28px;
+  /* Top padding clears the avatar */
+  background: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  position: relative;
+  z-index: 1;
+}
+
+.profile-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile-card-redesign button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  font-weight: 600;
+}
+
+/* Specifics for Backup Card */
+.backup-card {
+  padding: 24px 28px;
+  background: #ffffff;
+  /* Consistent white bg */
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.backup-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.backup-icon {
+  font-size: 1.25rem;
+}
+
+.backup-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.backup-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.backup-desc {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.btn-backup {
+  width: 100%;
+  background: #f1f5f9;
+  color: #334155;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 0;
+  transition: all 0.2s ease;
+}
+
+.btn-backup:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .profile-page-container {
+    max-width: 100%;
+    padding: 0 16px 24px 16px;
+  }
+
+  .profile-avatar {
+    width: 96px;
+    height: 96px;
+  }
+
+  .profile-avatar-container {
+    margin-bottom: -48px;
+  }
+
+  .profile-card-redesign {
+    padding-top: 56px;
+  }
+}
+
+/* ===============================
+   MODAL
+================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 360px;
+  text-align: center;
+}
+
+/* ===============================
+   ACTION BAR (IMPORT / EXPORT / HEADER)
+================================ */
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.action-bar h2 {
+  margin: 0;
+  border: none;
+}
+
+.action-right {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-secondary {
+  background: #1e293b;
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+  background: #020617;
+}
+
+/* ===============================
+   DATA IMPORT/EXPORT
+================================ */
+.data-card {
+  margin-bottom: 24px;
+}
+
+.data-card-header {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.data-card-header h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  color: #1e293b;
+}
+
+.data-card-description {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.data-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Export/Import Buttons */
+.btn-export,
+.btn-import {
+  background: #0f172a;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s ease;
+  align-self: flex-start;
+}
+
+.btn-export:hover {
+  background: #020617;
+}
+
+.btn-import:hover {
+  background: #020617;
+}
+
+/* Import Form */
+.import-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.import-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.import-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.import-input {
+  padding: 8px 12px;
+  border: 1px solid #cbd5f5;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.import-input:focus {
+  outline: none;
+  border-color: #0f172a;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1);
+}
+
+.import-hint {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* Info & Warning Boxes */
+.data-info-box,
+.data-warning-box {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.data-info-box {
+  background: #f0f7ff;
+  border-left: 4px solid #0f172a;
+  color: #0f172a;
+}
+
+.data-info-box strong {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.data-info-box ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.data-info-box li {
+  margin: 4px 0;
+}
+
+.data-warning-box {
+  background: #fef3c7;
+  border-left: 4px solid #dc2626;
+  color: #92400e;
+}
+
+.data-warning-box strong {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.data-warning-box ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.data-warning-box li {
+  margin: 4px 0;
+}
+
+.data-info-text {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Alerts */
+.alert {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin: 0;
+}
+
+.alert-success {
+  background: #dcfce7;
+  color: #166534;
+  border-left: 4px solid #16a34a;
+}
+
+.alert-error {
+  background: #fee2e2;
+  color: #991b1b;
+  border-left: 4px solid #dc2626;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+
+  .btn-export,
+  .btn-import {
+    width: 100%;
+    align-self: stretch;
+  }
+
+  .action-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .action-bar h2 {
+    margin: 0;
+  }
+
+  .action-right {
+    width: 100%;
+  }
+
+  .action-right .btn {
+    width: 100%;
+  }
+}
