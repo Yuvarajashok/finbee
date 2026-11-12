@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Dashboard</h2>
+
+<div style="margin-bottom:16px;">
+  <a href="/export/transactions" class="btn">
+    ⬇️ Export Transactions (CSV)
+  </a>
+</div>
+
+{% if empty %}
+  <p class="empty">
+    No data to show yet. Add transactions to view dashboard charts.
+  </p>
+{% else %}
+
+<!-- ================= SUMMARY ================= -->
+<div class="dashboard-summary">
+
+  <div class="summary-card income">
+    <div class="label">Weekly Income</div>
+    <div class="value">
+      ₹ {{ (weekly_income | default(0)) | round(2) }}
+    </div>
+  </div>
+
+  <div class="summary-card expense">
+    <div class="label">Weekly Expense</div>
+    <div class="value">
+      ₹ {{ (weekly_expense | default(0)) | round(2) }}
+    </div>
+  </div>
+
+  <div class="summary-card savings">
+    <div class="label">Weekly Savings</div>
+    <div class="value">
+      ₹ {{ (weekly_savings | default(0)) | round(2) }}
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= PIE CHARTS ================= -->
+<div class="dashboard-grid">
+
+  <div class="card">
+    <h3>Income Breakdown</h3>
+    <canvas id="incomeChart"></canvas>
+  </div>
+
+  <div class="card">
+    <h3>Expense Breakdown</h3>
+    <canvas id="expenseChart"></canvas>
+  </div>
+
+</div>
+
+<!-- ================= LINE CHART ================= -->
+<div class="card dashboard-line">
+  <h3>Monthly Trend</h3>
+  <canvas id="lineChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const incomeData = {{ income_pie | tojson }};
+  const expenseData = {{ expense_pie | tojson }};
+  const months = {{ months | tojson }};
+  const income = {{ income | tojson }};
+  const expense = {{ expense | tojson }};
+  const savings = {{ savings | tojson }};
+
+  if (incomeData.length > 0) {
+    new Chart(document.getElementById('incomeChart'), {
+      type: 'pie',
+      data: {
+        labels: incomeData.map(i => i.category),
+        datasets: [{
+          data: incomeData.map(i => i.amount),
+          backgroundColor: ['#22c55e', '#4ade80', '#86efac', '#bbf7d0']
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+  }
+
+  if (expenseData.length > 0) {
+    new Chart(document.getElementById('expenseChart'), {
+      type: 'pie',
+      data: {
+        labels: expenseData.map(i => i.category),
+        datasets: [{
+          data: expenseData.map(i => i.amount),
+          backgroundColor: ['#ef4444', '#f87171', '#fca5a5', '#fecaca']
+        }]
+      },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+  }
+
+  if (months.length > 0) {
+    new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: {
+        labels: months,
+        datasets: [
+          {
+            label: 'Income',
+            data: income,
+            borderColor: '#22c55e',
+            tension: 0.3
+          },
+          {
+            label: 'Expense',
+            data: expense,
+            borderColor: '#ef4444',
+            tension: 0.3
+          },
+          {
+            label: 'Savings',
+            data: savings,
+            borderColor: '#3b82f6',
+            tension: 0.3
+          }
+        ]
+      },
+      options: { responsive: true }
+    });
+  }
+</script>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Insights</h2>
+
+{% if not balances and weekly['income'] == 0 and weekly['expense'] == 0 %}
+<p class="empty">
+  No data available yet. Add transactions to see insights.
+</p>
+{% else %}
+
+<!-- ================= WEEKLY ================= -->
+<h3>This Week</h3>
+<div class="dashboard-grid">
+
+  <div class="card">
+    <span class="label">Income</span>
+    <div class="value">₹ {{ "%.2f"|format(weekly['income']) }}</div>
+  </div>
+
+  <div class="card">
+    <span class="label">Expense</span>
+    <div class="value">₹ {{ "%.2f"|format(weekly['expense']) }}</div>
+  </div>
+
+  <div class="card highlight {% if weekly_savings < 0 %}danger{% endif %}">
+    <span class="label">Savings</span>
+    <div class="value">
+      ₹ {{ "%.2f"|format(weekly_savings) }}
+    </div>
+  </div>
+
+</div>
+
+<hr>
+
+<!-- ================= MONTHLY ================= -->
+<h3>This Month</h3>
+<div class="dashboard-grid">
+
+  <div class="card">
+    <span class="label">Income</span>
+    <div class="value">₹ {{ "%.2f"|format(monthly['income']) }}</div>
+  </div>
+
+  <div class="card">
+    <span class="label">Expense</span>
+    <div class="value">₹ {{ "%.2f"|format(monthly['expense']) }}</div>
+  </div>
+
+  <div class="card highlight {% if monthly_savings < 0 %}danger{% endif %}">
+    <span class="label">Savings</span>
+    <div class="value">
+      ₹ {{ "%.2f"|format(monthly_savings) }}
+    </div>
+  </div>
+
+</div>
+
+<hr>
+
+<!-- ================= ACCOUNTS ================= -->
+<h3>Account Balances</h3>
+
+{% if balances %}
+
+<div class="dashboard-grid" style="margin-bottom: 2rem;">
+  <div class="card highlight">
+    <span class="label">Grand Total (All Accounts)</span>
+    <div class="value">₹ {{ "%.2f"|format(grand_total) }}</div>
+  </div>
+</div>
+
+<div class="dashboard-grid">
+  {% for name, bal in balances.items() %}
+  <div class="card">
+    <span class="label">{{ name | capitalize }}</span>
+    <div class="value">
+      ₹ {{ "%.2f"|format(bal) }}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p class="empty">No accounts available</p>
+{% endif %}
+
+{% endif %}
+
+{% endblock %}
