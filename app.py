@@ -317,6 +317,78 @@ def delete_transaction(txn_id):
     db.session.delete(txn)
     db.session.commit()
     return redirect(url_for('transactions'))
+
+
+@app.route('/transactions/edit/<int:txn_id>', methods=['GET', 'POST'])
+@login_required
+def edit_transaction(txn_id):
+    txn = Transaction.query.filter_by(
+        id=txn_id,
+        user_id=current_user.id
+    ).first_or_404()
+
+    accounts = Account.query.filter_by(user_id=current_user.id).all()
+    error = None
+
+    if request.method == 'POST':
+        try:
+            amount = float(request.form['amount'])
+        except ValueError:
+            error = "Invalid amount"
+
+        if not error and amount <= 0:
+            error = "Amount must be greater than zero"
+
+        txn_date = datetime.strptime(request.form['txn_date'], '%Y-%m-%d').date()
+        if not error and txn_date > date.today():
+            error = "Future date not allowed"
+
+        txn_type = request.form['transaction_type']
+        if not error and txn_type not in TXN_TYPES:
+            error = "Invalid transaction type"
+
+        cat_name = normalize(request.form['category_name'])
+        if not error and not cat_name:
+            error = "Category is required"
+
+        account_id = int(request.form['account_id'])
+        
+        if error:
+            return render_template(
+                'edit_transaction.html',
+                txn=txn,
+                accounts=accounts,
+                error=error
+            )
+
+        # Handle Category (find or create)
+        category = Category.query.filter_by(
+            user_id=current_user.id,
+            name=cat_name,
+            type=txn_type
+        ).first()
+
+        if not category:
+            category = Category(
+                user_id=current_user.id,
+                name=cat_name,
+                type=txn_type
+            )
+            db.session.add(category)
+            db.session.commit()
+
+        # Update Transaction
+        txn.date = txn_date
+        txn.amount = amount
+        txn.transaction_type = txn_type
+        txn.category_id = category.id
+        txn.account_id = account_id
+        txn.note = request.form.get('note')
+
+        db.session.commit()
+        return redirect(url_for('transactions'))
+
+    return render_template('edit_transaction.html', txn=txn, accounts=accounts)
 # ---------------- INSIGHTS ----------------
 @app.route('/insights')
 @login_required
